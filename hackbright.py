@@ -23,6 +23,18 @@ def get_student_by_github(github):
     print "Student: %s %s\nGithub account: %s" % (first, last, github)
     return (first, last, github)
 
+def get_all_project_grades(github):
+    """Given a github account name, return all projects and grades that student has received."""
+
+    QUERY = """
+        SELECT project_title, grade 
+        FROM Grades
+        WHERE student_github = ?
+        """
+
+    db_cursor.execute(QUERY, (github,))
+    results = db_cursor.fetchall()
+    return results
 
 def make_new_student(first_name, last_name, github):
     """Add a new student and print confirmation.

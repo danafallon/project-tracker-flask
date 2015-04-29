@@ -17,7 +17,8 @@ def get_student():
     github = request.args.get('github')
     if github:
         first, last, github = hackbright.get_student_by_github(github)
-        return render_template("student-info.html", first=first, last=last, github=github)
+        project_list = hackbright.get_all_project_grades(github)
+        return render_template("student-info.html", first=first, last=last, github=github, project_list=project_list)
     else:
         return redirect('/student-search')
 
