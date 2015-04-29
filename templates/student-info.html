@@ -11,9 +11,9 @@
     <p>Projects & Grades</p>
 
     <ul>
-         {% for project in project_list %}
-            <li> {{ project[0] }} : {{ project[1] }} </li>
-            {% endfor %}
+        {% for project in project_list %}
+            <li> <a href='/project?title={{(project[0])}}'> {{ project[0] }} </a> : {{ project[1] }} </li>
+        {% endfor %}
     </ul>
 
 </body>

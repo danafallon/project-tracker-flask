@@ -22,7 +22,6 @@ def get_student():
     else:
         return redirect('/student-search')
 
-
 @app.route("/student-add-form")
 def student_add_form():
     """Display a form for adding a new student."""
@@ -37,13 +36,20 @@ def student_add():
     lastname = request.form.get('lastname')
     github = request.form.get('github')
 
-
     if firstname and lastname and github:
         hackbright.make_new_student(firstname, lastname, github)
         first, last, github = hackbright.get_student_by_github(github)
         return render_template("student-info.html", first=first, last=last, github=github)
     else:
         return redirect('/student-add-form')
+
+@app.route('/project')
+def get_project_info():
+    """List information about a project."""
+
+    title = request.args.get('title')
+    title, description, max_grade = hackbright.get_project_by_title(title)
+    return render_template('project-info.html', title=title, description=description, max_grade=max_grade)
 
 if __name__ == "__main__":
     app.run(debug=True)
