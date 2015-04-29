@@ -11,7 +11,7 @@
     <h3>Students who have completed this project and their grades:</h3>
     <ul>
         {% for student in student_grades_list %}
-             <li> <a href='/student?github={{(student[0])}}'> 
+             <li> <a href='/student?github={{student[0]}}'> 
                 {{ student[1] + ' ' + student[2]}} </a> : {{ student[3] }} </li>
         {% endfor %}
     </ul>

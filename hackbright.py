@@ -53,7 +53,7 @@ def get_project_by_title(title):
     """Given a project title, print information about the project."""
 
     QUERY = """
-        SELECT title, description, max_grade
+        SELECT description, max_grade
         FROM Projects
         WHERE title = ?
         """
@@ -99,6 +99,26 @@ def get_students_and_grades(project_title):
         WHERE g.project_title = ?"""
 
     db_cursor.execute(QUERY, (project_title,))
+    results = db_cursor.fetchall()
+    return results
+
+
+def list_all_students():
+    """Return a list of all students."""
+
+    QUERY = """SELECT first_name, last_name, github FROM Students"""
+
+    db_cursor.execute(QUERY)
+    results = db_cursor.fetchall()
+    return results
+
+
+def list_all_projects():
+    """Return a list of all projects."""
+
+    QUERY = """SELECT title FROM Projects"""
+
+    db_cursor.execute(QUERY)
     results = db_cursor.fetchall()
     return results
 

@@ -4,6 +4,14 @@ import hackbright
 
 app = Flask(__name__)
 
+@app.route("/")
+def home_page():
+    """Home page displaying a list of all students and a list of all projects, consisting of links."""
+
+    student_list = hackbright.list_all_students()
+    project_list = hackbright.list_all_projects()
+    return render_template("index.html", student_list=student_list, project_list=project_list)
+
 @app.route("/student-search")
 def get_student_form():
     """Display a search box."""
@@ -48,7 +56,7 @@ def get_project_info():
     """List information about a project."""
 
     title = request.args.get('title')
-    title, description, max_grade = hackbright.get_project_by_title(title)
+    description, max_grade = hackbright.get_project_by_title(title)
     student_grades_list = hackbright.get_students_and_grades(title)
     return render_template('project-info.html', title=title, description=description, 
         max_grade=max_grade, student_grades_list=student_grades_list)
