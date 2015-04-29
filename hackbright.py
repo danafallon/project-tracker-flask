@@ -88,6 +88,21 @@ def assign_grade(github, title, grade):
         grade, github, title)
 
 
+def get_students_and_grades(project_title):
+    """Given a project title, return a list of students who have completed that project 
+    and the grade they received."""
+
+    QUERY = """
+        SELECT s.github, s.first_name, s.last_name, g.grade 
+        FROM Students AS s
+        JOIN Grades AS g ON s.github = g.student_github
+        WHERE g.project_title = ?"""
+
+    db_cursor.execute(QUERY, (project_title,))
+    results = db_cursor.fetchall()
+    return results
+
+
 def handle_input():
     """Main loop.
 
